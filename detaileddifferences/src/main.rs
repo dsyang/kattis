@@ -9,7 +9,16 @@ fn main() {
             let mut lines = stdin.lock().lines().take(2);
             let line1 = String::from(lines.next().unwrap().unwrap().trim());
             let line2 = String::from(lines.next().unwrap().unwrap().trim());
-            println!("{}\n{}\n{}\n", line1, line2, line1.chars().zip(line2.chars()).map(|(a,b)| if a==b {'.'} else { '*'}).collect::<String>())
+            println!(
+                "{}\n{}\n{}\n",
+                line1,
+                line2,
+                line1
+                    .chars()
+                    .zip(line2.chars())
+                    .map(|(a, b)| if a == b { '.' } else { '*' })
+                    .collect::<String>()
+            )
         }
     }
 }
