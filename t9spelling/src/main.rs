@@ -30,6 +30,7 @@ fn main() {
     t9.insert('y', "999");
     t9.insert('z', "9999");
     t9.insert(' ', "0");
+    t9.insert('\n', "");
 
     let mut input = String::new();
     if let Ok(_) = io::stdin().read_line(&mut input) {
@@ -37,16 +38,22 @@ fn main() {
         input.clear();
         for x in 1..(num_cases + 1) {
             if let Ok(_) = io::stdin().read_line(&mut input) {
-                let list = input.trim().chars().map(|c| {
-                    t9[&c].to_string()
-                }).collect::<Vec<String>>();
+                let list = input
+                    .chars()
+                    .map(|c| t9[&c].to_string())
+                    .collect::<Vec<String>>();
 
                 let mut output = format!("Case #{}: ", x);
                 for code in list {
-                    if output.chars().last().unwrap() == code.chars().next().unwrap() {
-                        output = format!("{} {}", output, code);
-                    } else {
-                        output = format!("{}{}", output, code);
+                    match code.chars().next() {
+                        None => continue,
+                        Some(c) => {
+                            if output.chars().last().unwrap() == c {
+                                output = format!("{} {}", output, code);
+                            } else {
+                                output = format!("{}{}", output, code);
+                            }
+                        }
                     }
                 }
                 println!("{}", output);
