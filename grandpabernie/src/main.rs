@@ -3,7 +3,7 @@ use std::io;
 
 fn main() {
     let mut input = String::new();
-    let mut trips: HashMap<String, Vec<String>> = HashMap::new();
+    let mut trips: HashMap<String, Vec<i64>> = HashMap::new();
     if let Ok(_) = io::stdin().read_line(&mut input) {
         let num_trips: i64 = input.trim().parse().unwrap();
         input.clear();
@@ -11,16 +11,16 @@ fn main() {
             if let Ok(_) = io::stdin().read_line(&mut input) {
                 let parsed: Vec<&str> = input.trim().split(' ').collect();
                 let country: &str = parsed[0];
-                let year: &str = parsed[1];
+                let year: i64 = parsed[1].trim().parse().unwrap();
 
                 match trips.contains_key(country) {
                     true => {
                         if let Some(mut v) = trips.get_mut(country.clone()) {
-                            v.push(String::from(year));
+                            v.push(year);
                         }
                     }
                     false => {
-                        trips.insert(String::from(country), vec![String::from(year)]);
+                        trips.insert(String::from(country), vec![year]);
                     }
                 }
             }
